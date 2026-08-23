@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - PC Flash Sale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container product-page">
+        <a href="{{ url_for('index') }}" class="back-link">← Back to Shop</a>
+
+        <div class="product-detail">
+            <div class="product-gallery">
+                <img src="{{ product.image }}" alt="{{ product.name }}" class="main-image">
+                <div class="thumbnails">
+                    {% for img in product.gallery %}
+                    <img src="{{ img }}" alt="Product view">
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="product-detail-info">
+                <h1>{{ product.name }}</h1>
+                <p class="category">{{ product.category }}</p>
+                <div class="pricing">
+                    <span class="original-price">${{ "%.2f"|format(product.original_price) }}</span>
+                    <span class="sale-price">${{ "%.2f"|format(price) }}</span>
+                    <span class="discount-badge">SAVE {{ product.discount }}%</span>
+                </div>
+
+                <div class="specs">
+                    <h3>Key Specifications</h3>
+                    <table>
+                        {% for key, value in product.specs.items() %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                <div class="features">
+                    <h3>Key Features</h3>
+                    <ul>
+                        {% for feature in product.features %}
+                        <li>✓ {{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <a href="{{ url_for('checkout', product_id=product.id) }}" class="buy-btn large">BUY NOW - ${{ "%.2f"|format(price) }}</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

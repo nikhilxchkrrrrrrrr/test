@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Flash Sale - 30% Off High-End Components</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="logo">⚡ PC Flash Sale</div>
+                <div class="trust-badge">🔒 SSL Encrypted • 1000+ Happy Customers</div>
+            </div>
+            <div class="hero">
+                <h1>🔥 FLASH SALE: 30% OFF</h1>
+                <p>Premium PC Components - Limited Stock</p>
+                <div class="countdown" id="countdown">⏱️ 00:34:12</div>
+            </div>
+        </header>
+
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ product.image }}" alt="{{ product.name }}">
+                    <span class="discount-badge">-{{ product.discount }}%</span>
+                </div>
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    <p class="category">{{ product.category }}</p>
+                    <div class="pricing">
+                        <span class="original-price">${{ "%.2f"|format(product.original_price) }}</span>
+                        <span class="sale-price">${{ "%.2f"|format(product.original_price * (1 - product.discount / 100)) }}</span>
+                    </div>
+                    <a href="{{ url_for('checkout', product_id=product.id) }}" class="buy-btn">BUY NOW</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="social-proof">
+            <p>🔥 John from NY just bought RTX 4090</p>
+            <p>🔥 Sarah from TX just bought Ryzen 9 7950X</p>
+            <p>🔥 Mike from CA just bought 990 Pro 2TB</p>
+        </div>
+
+        <footer>
+            <p>Secure Checkout • 30-Day Guarantee • Free Shipping</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
